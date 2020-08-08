@@ -23,7 +23,7 @@
             </li>
             <li class="divider" tabindex="-1"></li>
             <li>
-              <a href="#" class="black-text" @click.prevent="logout">
+              <a href="#" class="black-text" @click.prevent="Logout">
                 <i class="material-icons">assignment_return</i>Выйти
               </a>
             </li>
@@ -36,14 +36,17 @@
 
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   data: () => ({
     date: new Date(),
     timerId: null,
   }),
   methods: {
-    logout() {
-      console.log("Logout");
+    ...mapActions(["logout"]),
+    async Logout() {
+      await this.logout();
       this.$router.push("/login?message=logout");
     },
   },

@@ -78,6 +78,7 @@
 
 <script>
 import { required, email, minLength } from "vuelidate/lib/validators";
+import { mapActions } from "vuex";
 
 export default {
   name: "register",
@@ -94,7 +95,8 @@ export default {
     agree: { checked: (v) => v },
   },
   methods: {
-    onSubmit() {
+    ...mapActions(["register"]),
+    async onSubmit() {
       if (this.$v.$invalid) {
         this.$v.$touch();
         return;
@@ -104,7 +106,11 @@ export default {
         password: this.password,
         name: this.name,
       };
-      this.$router.push("/");
+
+      try {
+        await this.register(formData);
+        this.$router.push("/");
+      } catch (e) {}
     },
   },
 };
