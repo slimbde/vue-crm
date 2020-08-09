@@ -11,7 +11,7 @@
       <ul class="right hide-on-small-and-down">
         <li>
           <a class="dropdown-trigger black-text" href="#" data-target="dropdown" ref="dropdown">
-            USER NAME
+            {{userName}}
             <i class="material-icons right">arrow_drop_down</i>
           </a>
 
@@ -48,6 +48,11 @@ export default {
     async Logout() {
       await this.logout();
       this.$router.push("/login?message=logout");
+    },
+  },
+  computed: {
+    userName() {
+      return this.$store.getters.getInfo.name;
     },
   },
   mounted() {

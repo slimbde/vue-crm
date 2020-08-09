@@ -1,19 +1,22 @@
 <template>
   <div>
-    <div class="app-main-layout">
-      <Navbar @togglesidebar="sideBarVisible = !sideBarVisible" />
-      <Sidebar v-model="sideBarVisible" />
+    <Loader v-if="loading" />
+    <div v-else>
+      <div class="app-main-layout">
+        <Navbar @togglesidebar="sideBarVisible = !sideBarVisible" />
+        <Sidebar v-model="sideBarVisible" />
 
-      <main class="app-content" :class="{full: !sideBarVisible}">
-        <div class="app-page">
-          <router-view />
+        <main class="app-content" :class="{full: !sideBarVisible}">
+          <div class="app-page">
+            <router-view />
+          </div>
+        </main>
+
+        <div class="fixed-action-btn">
+          <router-link class="btn-floating btn-large blue" to="/record">
+            <i class="large material-icons">add</i>
+          </router-link>
         </div>
-      </main>
-
-      <div class="fixed-action-btn">
-        <router-link class="btn-floating btn-large blue" to="/record">
-          <i class="large material-icons">add</i>
-        </router-link>
       </div>
     </div>
   </div>
@@ -33,7 +36,14 @@ export default {
   data() {
     return {
       sideBarVisible: true,
+      loading: true,
     };
+  },
+  async mounted() {
+    if (!Object.keys(this.$store.getters.getInfo).length)
+      await this.$store.dispatch("fetchInfo");
+
+    this.loading = false;
   },
 };
 </script>

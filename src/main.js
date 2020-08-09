@@ -4,16 +4,21 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import messagePlugin from './utils/message.plugin'
+import currencyFilter from './filters/currency.filter'
 import firebase from 'firebase/app'
+import Loader from './components/Loader'
 import 'firebase/auth'
 import 'firebase/database'
 import './registerServiceWorker'
 import 'materialize-css/dist/js/materialize.min.js'
 
+
 Vue.config.productionTip = false
 
 Vue.use(messagePlugin)
 Vue.use(Vuelidate)
+Vue.filter("currencyFilter", currencyFilter)
+Vue.component("Loader", Loader)
 
 
 const firebaseConfig = {

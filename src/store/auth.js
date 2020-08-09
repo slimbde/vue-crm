@@ -12,7 +12,10 @@ export default {
         throw e
       }
     },
-    logout: async ctx => await firebase.auth().signOut(),
+    logout: async ctx => {
+      await firebase.auth().signOut()
+      ctx.commit("clearInfo")
+    },
     register: async (ctx, { email, password, name }) => {
       try {
         await firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -29,7 +32,7 @@ export default {
     getUId: ctx => {
       const user = firebase.auth().currentUser;
       return user ? user.uid : null
-    }
+    },
   },
   state: {},
   mutations: {},
