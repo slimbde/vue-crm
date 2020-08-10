@@ -28,13 +28,15 @@ export default {
     currency: null,
   }),
   async mounted() {
-    this.currency = await this.$store.dispatch("fetchCurrency");
+    await this.$store.dispatch("fetchCurrency");
+    this.currency = this.$store.getters.getCurrency;
     this.loading = false;
   },
   methods: {
     async refresh() {
       this.loading = true;
-      this.currency = await this.$store.dispatch("fetchCurrency");
+      await this.$store.dispatch("fetchCurrency");
+      this.currency = this.$store.getters.getCurrency;
       this.loading = false;
     },
   },

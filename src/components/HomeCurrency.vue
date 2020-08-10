@@ -33,11 +33,11 @@
 export default {
   props: ["rates", "date"],
   data: () => ({
-    currencies: ["RUB", "EUR", "USD"],
+    currencies: ["RUB", "USD", "EUR"],
   }),
   computed: {
     correctDate() {
-      return new Date(this.date * 1000).toLocaleString("RU").slice(0, 10);
+      return new Date().toLocaleString("RU").slice(12, 20);
     },
   },
 };
