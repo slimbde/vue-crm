@@ -3,10 +3,14 @@ import firebase from 'firebase/app'
 
 
 export default {
+  state: {
+    uid: null
+  },
   actions: {
     async login(ctx, { email, password }) {
       try {
         await firebase.auth().signInWithEmailAndPassword(email, password)
+        await ctx.dispatch("fetchUid");
       } catch (e) {
         ctx.commit('setError', e)
         throw e
@@ -19,7 +23,8 @@ export default {
     register: async (ctx, { email, password, name }) => {
       try {
         await firebase.auth().createUserWithEmailAndPassword(email, password)
-        const uid = await ctx.dispatch('getUId')
+        await ctx.dispatch("fetchUid");
+        const uid = ctx.getters.getUid;
         await firebase.database().ref(`/users/${uid}/info`).set({
           bill: 100000,
           name
@@ -29,11 +34,15 @@ export default {
         throw e
       }
     },
-    getUId: ctx => {
+    fetchUid: ctx => {
       const user = firebase.auth().currentUser;
-      return user ? user.uid : null
-    },
+      ctx.commit("setUid", user ? user.uid : null);
+    }
   },
-  state: {},
-  mutations: {},
+  mutations: {
+    setUid: (state, uid) => state.uid = uid
+  },
+  getters: {
+    getUid: state => state.uid
+  }
 }

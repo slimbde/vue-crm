@@ -3,22 +3,45 @@ import firebase from 'firebase/app'
 
 export default {
   state: {
-    categories: []
+    categories: null
   },
   actions: {
     async createCategory(ctx, { title, limit }) {
       try {
-        const uid = await ctx.dispatch("getUId")
-        const category = await firebase.database().ref(`/users/${uid}/categories`).push({ title, limit })
-        ctx.commit("addCategory", { title, limit, id: category.key });
+        !ctx.getters.getUid && ctx.dispatch("fetchUid")
+        const uid = ctx.getters.getUid;
+        await firebase.database().ref(`/users/${uid}/categories`).push({ title, limit });
+        await ctx.dispatch("fetchCategories");
       } catch (error) {
         ctx.commit("setError", error)
         throw error
       }
+    },
+    async fetchCategories(ctx) {
+      try {
+        !ctx.getters.getUid && ctx.dispatch("fetchUid")
+        const uid = ctx.getters.getUid;
+        const categories = (await firebase.database().ref(`/users/${uid}/categories`).once("value")).val();
+        ctx.commit("setCategories", categories);
+      } catch (error) { console.log("error") }
+    },
+    async updateCategory(ctx, category) {
+      try {
+        const { id, title, limit } = category;
+        !ctx.getters.getUid && ctx.dispatch("fetchUid")
+        const uid = ctx.getters.getUid;
+        await firebase.database().ref(`/users/${uid}/categories`).child(id).update({ title, limit })
+        ctx.commit("updCategory", category);
+      } catch (error) { }
     }
   },
   mutations: {
-    addCategory: (state, category) => state.categories = [...state.categories, category]
+    setCategories: (state, categories) => state.categories = categories,
+    updCategory: (state, category) => {
+      let old = state.categories[category.id];
+      old.title = category.title;
+      old.limit = category.limit;
+    }
   },
   getters: {
     getCategories: state => state.categories

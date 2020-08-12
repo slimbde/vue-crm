@@ -71,12 +71,11 @@ export default {
           title: this.title,
           limit: this.limit,
         });
-
         this.title = "";
         this.limit = 100;
         this.$v.$reset();
+        this.$emit("update");
         this.$message("Категория была создана");
-        this.$emit("created");
       } catch (e) {}
     },
   },

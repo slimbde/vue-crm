@@ -18,7 +18,8 @@ export default {
   props: ["rates"],
   computed: {
     base() {
-      return this.$store.getters.getInfo.bill / this.rates["RUB"];
+      const info = this.$store.getters.getInfo;
+      return info ? info.bill / this.rates["RUB"] : 0;
     },
   },
   data: () => ({

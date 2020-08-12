@@ -46,16 +46,21 @@ export default {
   methods: {
     ...mapActions(["logout"]),
     async Logout() {
-      await this.logout();
       this.$router.push("/login?message=logout");
+      await this.logout();
     },
   },
   computed: {
     userName() {
-      return this.$store.getters.getInfo.name;
+      let info = this.$store.getters.getInfo;
+      return info ? info.name : "";
     },
   },
-  mounted() {
+  async mounted() {
+    (!this.$store.getters.getInfo ||
+      !("info" in this.$store.getters.getInfo)) &&
+      (await this.$store.dispatch("fetchInfo"));
+
     M.Dropdown.init(this.$refs.dropdown, {
       coverTrigger: false,
     });

@@ -40,8 +40,9 @@ export default {
     };
   },
   async mounted() {
-    if (!Object.keys(this.$store.getters.getInfo).length)
-      await this.$store.dispatch("fetchInfo");
+    (!this.$store.getters.getInfo ||
+      !("info" in this.$store.getters.getInfo)) &&
+      (await this.$store.dispatch("fetchInfo"));
 
     this.loading = false;
   },

@@ -4,7 +4,7 @@ import firebase from 'firebase/app'
 
 export default {
   state: {
-    info: {}
+    info: null
   },
   mutations: {
     setInfo: (state, info) => state.info = info,
@@ -13,7 +13,8 @@ export default {
   actions: {
     fetchInfo: async (ctx) => {
       try {
-        const uid = await ctx.dispatch('getUId');
+        !ctx.state.uid && await ctx.dispatch("fetchUid");
+        const uid = ctx.getters.getUid;
         const info = (await firebase.database().ref(`/users/${uid}/info`).once('value')).val();
         ctx.commit('setInfo', info)
       } catch (e) { }
