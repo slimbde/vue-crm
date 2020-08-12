@@ -17,12 +17,6 @@
 import CategoryCreate from "../components/CategoryCreate";
 import CategoryEdit from "../components/CategoryEdit";
 
-const transformCategories = (objCategories) =>
-  Object.keys(objCategories).map((k) => ({
-    id: k,
-    ...objCategories[k],
-  }));
-
 export default {
   data: () => ({
     cats: null,
@@ -30,14 +24,11 @@ export default {
   }),
   async created() {
     await this.$store.dispatch("fetchCategories");
-
-    const cts = this.$store.getters.getCategories;
-    this.cats = transformCategories(cts);
+    this.cats = this.$store.getters.getCategories;
   },
   methods: {
     upd() {
-      const ctss = this.$store.getters.getCategories;
-      this.cats = transformCategories(ctss);
+      this.cats = this.$store.getters.getCategories;
       ++this.counter;
     },
   },

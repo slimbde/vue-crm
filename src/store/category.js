@@ -45,5 +45,7 @@ export default {
   },
   getters: {
     getCategories: state => state.categories
+      ? Object.keys(state.categories).map((k) => ({ id: k, ...state.categories[k], }))
+      : null
   }
 }
