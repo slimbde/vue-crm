@@ -6,7 +6,7 @@
         <Navbar @togglesidebar="sideBarVisible = !sideBarVisible" />
         <Sidebar v-model="sideBarVisible" />
 
-        <main class="app-content" :class="{full: !sideBarVisible}">
+        <main class="app-content" :class="{ full: !sideBarVisible }">
           <div class="app-page">
             <router-view />
           </div>

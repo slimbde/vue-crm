@@ -142,7 +142,7 @@ export default {
       } else
         this.$message(
           `Недостаточно средств на счете (${
-            this.amount - this.$store.getters.getInfo.bill
+          this.amount - this.$store.getters.getInfo.bill
           })`
         );
     },
