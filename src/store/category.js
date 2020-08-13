@@ -19,20 +19,26 @@ export default {
     },
     async fetchCategories(ctx) {
       try {
-        !ctx.getters.getUid && ctx.dispatch("fetchUid")
+        !ctx.getters.getUid && await ctx.dispatch("fetchUid")
         const uid = ctx.getters.getUid;
         const categories = (await firebase.database().ref(`/users/${uid}/categories`).once("value")).val();
         ctx.commit("setCategories", categories);
-      } catch (error) { console.log("error") }
+      } catch (error) {
+        ctx.commit("setError", error)
+        throw error
+      }
     },
     async updateCategory(ctx, category) {
       try {
         const { id, title, limit } = category;
-        !ctx.getters.getUid && ctx.dispatch("fetchUid")
+        !ctx.getters.getUid && await ctx.dispatch("fetchUid")
         const uid = ctx.getters.getUid;
         await firebase.database().ref(`/users/${uid}/categories`).child(id).update({ title, limit })
         ctx.commit("updCategory", category);
-      } catch (error) { }
+      } catch (error) {
+        ctx.commit("setError", error)
+        throw error
+      }
     }
   },
   mutations: {
