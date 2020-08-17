@@ -25,7 +25,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "login" */ './views/Login')
   },
   {
-    path: '/detail-record',
+    path: '/detail-record/:id',
     name: 'DetailRecord',
     meta: { layout: 'main', auth: true },
     component: () => import(/* webpackChunkName: "detail-record" */ './views/DetailRecord')

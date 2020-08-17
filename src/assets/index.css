@@ -184,3 +184,7 @@
   color: white;
   font-size: 1rem;
 }
+
+* {
+  scrollbar-width: thin;
+}

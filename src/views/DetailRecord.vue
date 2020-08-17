@@ -2,8 +2,8 @@
   <div>
     <div>
       <div class="breadcrumb-wrap">
-        <a href="/history" class="breadcrumb">История</a>
-        <a class="breadcrumb">Расход</a>
+        <router-link to="/history" class="breadcrumb">История</router-link>
+        <router-link to="/history" class="breadcrumb">Расход</router-link>
       </div>
       <div class="row">
         <div class="col s12 m6">
@@ -21,3 +21,10 @@
     </div>
   </div>
 </template>
+
+
+<script>
+export default {
+
+}
+</script>
