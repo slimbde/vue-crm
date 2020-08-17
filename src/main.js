@@ -7,6 +7,7 @@ import messagePlugin from './utils/message.plugin'
 import currencyFilter from './filters/currency.filter'
 import firebase from 'firebase/app'
 import Loader from './components/Loader'
+import tooltipDirective from './directives/tooltip.directive'
 import 'firebase/auth'
 import 'firebase/database'
 import './registerServiceWorker'
@@ -19,6 +20,7 @@ Vue.use(messagePlugin)
 Vue.use(Vuelidate)
 Vue.filter("currencyFilter", currencyFilter)
 Vue.component("Loader", Loader)
+Vue.directive('tooltip', tooltipDirective)
 
 
 const firebaseConfig = {

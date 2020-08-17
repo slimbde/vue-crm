@@ -15,12 +15,7 @@
 
     <section v-else>
       <div v-for="c in this.categories" :key="c.id">
-        <p
-          class="tooltipped"
-          data-position="left"
-          data-delay="550"
-          :data-tooltip="c.progress + ' %'"
-        >
+        <p v-tooltip="c.tooltip">
           <strong>{{ c.title }}:</strong> {{ c.spent }} из
           {{ c.limit | currencyFilter() }}
         </p>
@@ -39,6 +34,8 @@
 ////////////////////////// DYNAMIC STYLE
 
 <script>
+import currencyFilter from '../filters/currency.filter'
+
 export default {
   name: "planning",
   data: () => ({
@@ -46,7 +43,6 @@ export default {
     categories: null,
     records: null,
     info: null,
-    tooltip: null,
   }),
   mounted() {
     this.$store.dispatch("fetchRecords")
@@ -68,6 +64,10 @@ export default {
             ? "yellow"
             : "red"
 
+        const tooltipValue = cat.limit - spent;
+        const tooltip = `${tooltipValue < 0 ? '!!! Превышение на' : 'Осталось'} ${currencyFilter(Math.abs(tooltipValue))}`;
+        cat.tooltip = tooltip;
+
         cat.spent = spent
         cat.progress = progressPercent
         cat.color = color
@@ -77,11 +77,7 @@ export default {
       .then(() => this.$store.getters.getInfo)
       .then(data => this.info = data)
       .then(() => this.loading = false)
-      .then(() => this.tooltip = M.Tooltip.init(document.querySelectorAll('.tooltipped')))
     //.then(() => console.log(this.records))
   },
-  beforeDestroy() {
-    this.tooltip.forEach(t => t.destroy())
-  }
 };
 </script>
