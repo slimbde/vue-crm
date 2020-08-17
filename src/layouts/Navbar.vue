@@ -5,13 +5,18 @@
         <a href="#" @click.prevent="$emit('togglesidebar')">
           <i class="material-icons black-text">dehaze</i>
         </a>
-        <span class="black-text">{{this.date.toLocaleString("ru")}}</span>
+        <span class="black-text">{{ this.date.toLocaleString("ru") }}</span>
       </div>
 
       <ul class="right hide-on-small-and-down">
         <li>
-          <a class="dropdown-trigger black-text" href="#" data-target="dropdown" ref="dropdown">
-            {{userName}}
+          <a
+            class="dropdown-trigger black-text"
+            href="#"
+            data-target="dropdown"
+            ref="dropdown"
+          >
+            {{ userName }}
             <i class="material-icons right">arrow_drop_down</i>
           </a>
 
@@ -74,3 +79,11 @@ export default {
   },
 };
 </script>
+
+
+<style scoped>
+.dropdown-content {
+  display: flex;
+  width: auto !important;
+}
+</style>

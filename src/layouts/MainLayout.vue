@@ -26,6 +26,7 @@
 <script>
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
+import messages from "../utils/messages";
 
 export default {
   name: "main-layout",
@@ -45,6 +46,17 @@ export default {
       (await this.$store.dispatch("fetchInfo"));
 
     this.loading = false;
+  },
+  computed: {
+    error() {
+      return this.$store.getters.error;
+    },
+  },
+  watch: {
+    error(fbError) {
+      const msg = messages[fbError.code] || "Что-то пошло не так";
+      this.$error(msg);
+    },
   },
 };
 </script>
