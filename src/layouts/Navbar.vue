@@ -83,7 +83,6 @@ export default {
 
 <style scoped>
 .dropdown-content {
-  display: flex;
   width: auto !important;
 }
 </style>
