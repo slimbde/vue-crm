@@ -10,8 +10,18 @@
 
     <HistoryTable
       v-if="this.categories"
-      :records="this.records"
+      :records="this.items"
       :categories="this.categories"
+    />
+
+    <Paginate
+      v-model="page"
+      :pageCount="pageCount"
+      :clickHandler="pageChangeHandler"
+      :prevText="'Пред'"
+      :nextText="'След'"
+      :containerClass="'pagination'"
+      :page-class="'waves-effect'"
     />
   </div>
 </template>
@@ -19,9 +29,11 @@
 
 <script>
 import HistoryTable from '../components/HistoryTable'
+import paginationMixin from '../mixins/pagination.mixin'
 
 export default {
   name: 'History',
+  mixins: [paginationMixin], // here we got all the fields within mixin
   data: () => ({
     records: null,
     categories: null,
@@ -31,11 +43,14 @@ export default {
   },
   async mounted() {
     !this.$store.getters.getRecords && await this.$store.dispatch("fetchRecords");
-    this.records = this.$store.getters.getRecords;
     !this.$store.getters.getCategories && await this.$store.dispatch("fetchCategories");
+    this.records = this.$store.getters.getRecords;
     this.categories = this.$store.getters.getCategories;
-    //console.log(this.records);///////////////////////////////
-    //console.log(this.categories);//////////////////////////////////
+
+    this.setupPagination(this.records);
+  },
+  methods: {
+
   }
 }
 </script>

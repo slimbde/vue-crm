@@ -8,6 +8,7 @@ import currencyFilter from './filters/currency.filter'
 import firebase from 'firebase/app'
 import Loader from './components/Loader'
 import tooltipDirective from './directives/tooltip.directive'
+import Paginate from 'vuejs-paginate'
 import 'firebase/auth'
 import 'firebase/database'
 import './registerServiceWorker'
@@ -21,6 +22,7 @@ Vue.use(Vuelidate)
 Vue.filter("currencyFilter", currencyFilter)
 Vue.component("Loader", Loader)
 Vue.directive('tooltip', tooltipDirective)
+Vue.component('Paginate', Paginate)
 
 
 const firebaseConfig = {

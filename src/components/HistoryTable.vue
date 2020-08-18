@@ -51,13 +51,3 @@ export default {
   props: ['records', 'categories'],
 }
 </script>
-
-
-<style scoped>
-section {
-  display: block;
-  overflow-y: scroll;
-  height: 60vh;
-  box-sizing: border-box;
-}
-</style>
