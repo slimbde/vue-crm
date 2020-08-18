@@ -52,6 +52,9 @@ export default {
   getters: {
     getCategories: state => state.categories
       ? Object.keys(state.categories).map((k) => ({ id: k, ...state.categories[k], }))
+      : null,
+    getCategoryById: state => id => state.categories
+      ? ({ id: id, ...state.categories[id] })
       : null
   }
 }

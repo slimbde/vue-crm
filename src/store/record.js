@@ -42,6 +42,9 @@ export default {
       : null
   },
   getters: {
-    getRecords: state => state.records
+    getRecords: state => state.records,
+    getRecordById: (state) => (id) => state.records
+      ? (Object.assign({}, state.records.find(r => r.id === id)))
+      : null
   }
 }
