@@ -53,7 +53,7 @@ export default {
     this.categories = this.$store.getters.getCategories;
 
     this.setupPagination(this.records);
-    this.setupChart();
+    setTimeout(() => this.setupChart(), 100);
   },
   methods: {
     getRandomColor() {
@@ -67,18 +67,20 @@ export default {
     setupChart() {
       const colors = this.categories.map(c => this.getRandomColor());
 
-      const data = {
+      const chartData = {
         labels: this.categories.map(c => c.title),
         datasets: [{
           label: 'Расходы по категориям',
-          data: this.categories.map(c => c.spent),
+          data: this.categories.map(c => this.records
+            .filter(r => r.categoryId === c.id)
+            .reduce((sum, cur) => sum += cur.amount, 0)),
           backgroundColor: colors,
           borderColor: 'black',
-          borderWidth: 0.4
+          borderWidth: 0.5
         }]
-      }
+      };
 
-      this.renderChart(data)
+      this.renderChart(chartData);
     }
   }
 }
