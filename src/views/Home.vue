@@ -3,7 +3,10 @@
     <div class="page-title">
       <h3>Счет</h3>
 
-      <button class="btn waves-effect waves-light btn-small" @click.prevent="refresh">
+      <button
+        class="btn waves-effect waves-light btn-small"
+        @click.prevent="refresh"
+      >
         <i class="material-icons">refresh</i>
       </button>
     </div>
@@ -27,6 +30,9 @@ export default {
     loading: true,
     currency: null,
   }),
+  metaInfo: {
+    title: "Главная"
+  },
   async mounted() {
     await this.$store.dispatch("fetchCurrency");
     this.currency = this.$store.getters.getCurrency;

@@ -7,34 +7,46 @@
           id="email"
           type="text"
           v-model.trim="email"
-          :class="{invalid: ($v.email.$dirty && !$v.email.required) || ($v.email.$dirty && !$v.email.email)}"
+          :class="{
+            invalid:
+              ($v.email.$dirty && !$v.email.required) ||
+              ($v.email.$dirty && !$v.email.email),
+          }"
         />
         <label for="email">Email</label>
         <small
           class="helper-text invalid"
           v-if="$v.email.$dirty && !$v.email.required"
-        >Email can't be empty</small>
+          >Email can't be empty</small
+        >
         <small
           class="helper-text invalid"
           v-else-if="$v.email.$dirty && !$v.email.email"
-        >Email isn't correct</small>
+          >Email isn't correct</small
+        >
       </div>
       <div class="input-field">
         <input
           id="password"
           type="password"
           v-model.trim="password"
-          :class="{invalid: ($v.password.$dirty && !$v.password.required) || ($v.password.$dirty && !$v.password.minLength)}"
+          :class="{
+            invalid:
+              ($v.password.$dirty && !$v.password.required) ||
+              ($v.password.$dirty && !$v.password.minLength),
+          }"
         />
         <label for="password">Пароль</label>
         <small
           class="helper-text invalid"
           v-if="$v.password.$dirty && !$v.password.required"
-        >Password is required</small>
+          >Password is required</small
+        >
         <small
           class="helper-text invalid"
           v-else-if="$v.password.$dirty && !$v.password.minLength"
-        >Password should be 6 more symbols</small>
+          >Password should be 6 more symbols</small
+        >
       </div>
     </div>
     <div class="card-action">
@@ -68,6 +80,9 @@ export default {
     email: { email, required },
     password: { required, minLength: minLength(6) },
   },
+  metaInfo: {
+    title: "Вход в систему"
+  },
   methods: {
     ...mapActions(["login"]),
     async onSubmit() {
@@ -83,7 +98,7 @@ export default {
       try {
         await this.login(formData);
         this.$router.push("/");
-      } catch (e) {}
+      } catch (e) { }
     },
   },
   mounted() {

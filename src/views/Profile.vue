@@ -18,3 +18,12 @@
     </form>
   </div>
 </template>
+
+
+<script>
+export default {
+  metaInfo: {
+    title: "Личный кабинет"
+  },
+}
+</script>

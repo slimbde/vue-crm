@@ -79,5 +79,8 @@ export default {
       .then(() => this.loading = false)
     //.then(() => console.log(this.records))
   },
+  metaInfo: {
+    title: "Планирование"
+  },
 };
 </script>

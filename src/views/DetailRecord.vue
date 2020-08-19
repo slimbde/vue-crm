@@ -43,6 +43,9 @@ export default {
     record: null,
     loading: true,
   }),
+  metaInfo: {
+    title: "Запись подробно"
+  },
   async created() {
     const id = this.$route.params.id;
     const record = this.$store.getters.getRecordById(id);

@@ -3,6 +3,7 @@ import Vuelidate from 'vuelidate'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import VueMeta from 'vue-meta'
 import messagePlugin from './utils/message.plugin'
 import currencyFilter from './filters/currency.filter'
 import firebase from 'firebase/app'
@@ -19,6 +20,7 @@ Vue.config.productionTip = false
 
 Vue.use(messagePlugin)
 Vue.use(Vuelidate)
+Vue.use(VueMeta)
 Vue.filter("currencyFilter", currencyFilter)
 Vue.component("Loader", Loader)
 Vue.directive('tooltip', tooltipDirective)

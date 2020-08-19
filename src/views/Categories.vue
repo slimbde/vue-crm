@@ -6,7 +6,12 @@
     <section>
       <div class="row">
         <CategoryCreate @update="upd" />
-        <CategoryEdit v-if="cats!==null" :cats="cats" @updated="upd" :key="this.counter" />
+        <CategoryEdit
+          v-if="cats !== null"
+          :cats="cats"
+          @updated="upd"
+          :key="this.counter"
+        />
       </div>
     </section>
   </div>
@@ -22,6 +27,9 @@ export default {
     cats: null,
     counter: 0,
   }),
+  metaInfo: {
+    title: "Категории"
+  },
   async created() {
     await this.$store.dispatch("fetchCategories");
     this.cats = this.$store.getters.getCategories;

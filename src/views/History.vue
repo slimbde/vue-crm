@@ -40,6 +40,9 @@ export default {
     records: null,
     categories: null,
   }),
+  metaInfo: {
+    title: "История записей"
+  },
   components: {
     HistoryTable,
   },
